@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Attributes User Access
 
 **Contributors:** attributeswp  
@@ -85,7 +84,6 @@ Upgrade to **[Attributes User Access Premium](https://attributeswp.com/premium)*
 3. Use hooks and filters to extend redirection logic.
 
 
-<<<<<<< HEAD
 ## Developer Hooks Reference
 
 ### Available Actions
@@ -312,9 +310,6 @@ Upgrade to **[Attributes User Access Premium](https://attributeswp.com/premium)*
 
 
 ## Developer Documentation
-=======
-## Developer Hooks Reference
->>>>>>> d3343308d5ae795120fb1674e9186b5081f8f57e
 
 ### Available Actions
 
