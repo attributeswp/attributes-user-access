@@ -42,6 +42,14 @@ $error_message = isset($error_message) ? $error_message : '';
     <?php endif; ?>
 
     <!-- Login Form -->
+    <?php
+    /**
+     * Hook for adding content before login form
+     *
+     * @since 1.0.0
+     */
+    do_action('attrua_before_login_form');
+    ?>
     <form id="<?php echo esc_attr($args['form_id']); ?>" 
           class="attrua-login-form" 
           method="post" 

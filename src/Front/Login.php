@@ -90,14 +90,25 @@ class Login {
         $args = shortcode_atts([
             'redirect' => '',
             'form_id' => 'attrua_login_form',
-            'label_username' => __('Username or Email', 'attributes-user-access'),
-            'label_password' => __('Password', 'attributes-user-access'),
-            'label_remember' => __('Remember Me', 'attributes-user-access'),
-            'label_log_in' => __('Log In', 'attributes-user-access'),
+            'label_username' => __('Username or Email', 'attrua'),
+            'label_password' => __('Password', 'attrua'),
+            'label_remember' => __('Remember Me', 'attrua'),
+            'label_log_in' => __('Log In', 'attrua'),
             'remember' => true,
             'value_username' => '',
             'value_remember' => false
         ], $atts);
+        
+        /**
+         * Filter: attrua_login_form_fields
+         * 
+         * Filter the login form fields and attributes.
+         *
+         * @since 1.0.0
+         * @param array $args Array of form field arguments.
+         * @return array Modified arguments.
+         */
+        $args = apply_filters('attrua_login_form_fields', $args);
 
         // Get any error messages
         $error_message = $this->attrua_get_error_message();
@@ -167,6 +178,17 @@ class Login {
             $this->attrua_handle_failed_login($user);
             return;
         }
+        
+        /**
+         * Action: attrua_successful_login
+         * 
+         * Fires after successful authentication.
+         *
+         * @since 1.0.0
+         * @param \WP_User $user The authenticated user.
+         * @param array $credentials The credentials used for login.
+         */
+        do_action('attrua_successful_login', $user, $credentials);
 
         // Get redirect URL
         $redirect_to = isset($_POST['redirect_to']) && !empty($_POST['redirect_to']) 
@@ -209,6 +231,16 @@ class Login {
 
         // Store error message
         $_SESSION['attrua_login_error'] = $this->attrua_get_error_code_message($error->get_error_code());
+        
+        /**
+         * Action: attrua_login_failed
+         * 
+         * Fires when a login attempt fails.
+         *
+         * @since 1.0.0
+         * @param \WP_Error $error Error object from failed login attempt.
+         */
+        do_action('attrua_login_failed', $error);
 
         // Get redirect URL
         $redirect_url = wp_login_url();
@@ -443,11 +475,22 @@ class Login {
             : __('Invalid username or password.', 'attributes-user-access');
 
         unset($_SESSION['attrua_login_error']);
+    
+        /**
+         * Filter: attrua_login_error_message
+         * 
+         * Filter the login error message before display.
+         *
+         * @since 1.0.0
+         * @param string $message The error message.
+         * @return string Modified error message.
+         */
+        $message = apply_filters('attrua_login_error_message', $message);
 
         return sprintf(
             '<div class="attrua-error">%s</div>',
             esc_html($message)
-        );
+        );;
     }
 
     /**
