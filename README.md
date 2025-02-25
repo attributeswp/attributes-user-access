@@ -84,27 +84,55 @@ Upgrade to **[Attributes User Access Premium](https://attributeswp.com/premium)*
 3. Use hooks and filters to extend redirection logic.
 
 
-## Developer Documentation
+## Developer Hooks Reference
 
-### Available Hooks
+### Available Actions
 
-#### Actions
+| Action | Description | Parameters |
+|--------|-------------|------------|
+| `attrua_before_login_form` | Fires before rendering the login form. | None |
+| `attrua_after_login_form` | Fires after rendering the login form. | None |
+| `attrua_login_failed` | Fires when a login attempt fails. | `$error` (WP_Error): The error object containing failure details |
+| `attrua_successful_login` | Fires after successful authentication. | `$user` (WP_User): The authenticated user<br>`$credentials` (array): The credentials used for login |
 
-| Action                        | Description |
-|--------------------------------|-------------|
-| `attributes_before_login_form` | Fires before rendering the login form. |
-| `attributes_after_login_form`  | Fires after rendering the login form. |
-| `attributes_login_failed`      | Fires when a login attempt fails. |
-| `attributes_successful_login`  | Fires after successful authentication. |
+### Available Filters
 
-#### Filters
+| Filter | Description | Parameters | Default |
+|--------|-------------|------------|---------|
+| `attrua_login_form_fields` | Modify the login form fields. | `$args` (array): Form field settings | Array of form attributes |
+| `attrua_login_redirect` | Customize login redirection. | `$redirect` (string): Default redirect URL<br>`$user` (WP_User): The authenticated user | Determined by user role |
+| `attrua_login_error_message` | Modify login error messages. | `$message` (string): The error message | Error message based on failure reason |
 
-| Filter                          | Description |
-|---------------------------------|-------------|
-| `attributes_login_form_fields`  | Modify the login form fields. |
-| `attributes_login_redirect`     | Customize login redirection. |
-| `attributes_login_error_message` | Modify login error messages. |
+### Usage Examples
 
+#### Adding Content Before Login Form
+```php
+add_action('attrua_before_login_form', function() {
+    echo '<div class="custom-notice">Welcome to our login page!</div>';
+});
+```
+
+#### Customizing Login Redirection
+```php
+add_filter('attrua_login_redirect', function($redirect, $user) {
+    // Redirect to a specific page for authors
+    if (in_array('author', $user->roles)) {
+        return home_url('/author-dashboard/');
+    }
+    return $redirect;
+}, 10, 2);
+```
+
+#### Customizing Error Messages
+```php
+add_filter('attrua_login_error_message', function($message) {
+    // Provide a more user-friendly message
+    if ($message === 'Incorrect password.') {
+        return 'The password you entered doesn\'t match our records. Please try again.';
+    }
+    return $message;
+});
+```
 
 
 ## Shortcode Usage
