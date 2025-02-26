@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
  */
 $has_premium_features = apply_filters('attributes_has_premium_features', false);
 
-$icon_url = ATTRUA_URL . 'assets/img/attr-240.png';
+$icon_url = ATTRUA_URL . 'assets/img/attr-250.png';
 ?>
 
 <div class="attrua-masthead">
@@ -37,14 +37,14 @@ $icon_url = ATTRUA_URL . 'assets/img/attr-240.png';
             <?php
             // Use wp_get_attachment_image if this is a media library image
             if (function_exists('wp_get_attachment_image') && is_numeric($icon_id)) {
-                echo wp_get_attachment_image($icon_id, [128, 128], false, [
+                echo wp_get_attachment_image($icon_id, [50, 50], false, [
                     'class' => 'attrua-masthead-logo',
                     'alt' => 'Attributes WP logo'
                 ]);
             } else {
                 // Fallback for plugin-bundled images
                 ?>
-                <img class="attrua-masthead-logo" src="<?php echo esc_url($icon_url); ?>" alt="Attributes WP logo" width="128">
+                <img class="attrua-masthead-logo" src="<?php echo esc_url($icon_url); ?>" alt="Attributes WP logo" width="50">
                 <?php
             }
             ?>
