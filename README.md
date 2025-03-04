@@ -34,21 +34,6 @@
 - Use transients for caching and improved efficiency.
 - Deploy minified assets with source mapping for production.
 
-## Premium Features
-
-Upgrade to **[Attributes User Access Premium](https://attributeswp.com/premium)** for enhanced security and authentication features:
-
-- **Premium Forms**: Custom **registration, lost password, and reset password** forms.
-- **Two-Factor Authentication (2FA)**: Secure logins with app or email verification.
-- **Social Login Integration**: Allow users to log in via **Google, Facebook, Twitter, and more**.
-- **Custom Login Fields**: Extend login forms with additional fields.
-- **Enhanced Security**:
-  - Brute force protection.
-  - IP management and login activity logs.
-  - Email notifications for suspicious login attempts.
-- **Custom Email Templates**: Personalize authentication-related email notifications.
-- **Priority Support**: Get direct assistance for premium users.
-
 ## Installation
 
 ### Standard Installation
@@ -158,6 +143,25 @@ add_filter('attrua_login_error_message', function($message) {
 | `form_id`  | Custom form identifier            | attributes_login_form |
 
 
+## Custom Template Override
+
+Here's how to create a custom template for the login form in your theme:
+
+Create a directory structure in your theme to mirror the plugin's template location:
+
+```
+your-theme/
+├── attributes/
+│   └── front/
+│       └── forms/
+│           └── login-form.php
+```
+
+Copy the original template from the plugin (templates/front/forms/login-form.php) to your theme's directory as a starting point.
+Customize the template as needed. The plugin uses a well-structured template with hooks that you can leverage:
+
+- attrua_login_form_fields - Add custom fields to the form
+- attrua_after_login_form - Add content after the form
 
 ## Programmatic Implementation
 
