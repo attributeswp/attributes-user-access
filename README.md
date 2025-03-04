@@ -145,8 +145,6 @@ add_filter('attrua_login_error_message', function($message) {
 
 ## Template Override
 
-Here's how to create a custom template for the login form in your theme:
-
 Create a directory structure in your theme to mirror the plugin's template location:
 
 ```
