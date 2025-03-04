@@ -143,7 +143,7 @@ add_filter('attrua_login_error_message', function($message) {
 | `form_id`  | Custom form identifier            | attributes_login_form |
 
 
-## Custom Template Override
+## Template Override
 
 Here's how to create a custom template for the login form in your theme:
 
